@@ -171,58 +171,39 @@ Txtms expects for the API key to be included in all API requests to the server i
 You must replace <code><YOUR API KEY></code> with your personal API key.
 </aside>
 
-# Kittens
+# Orders/Leads
 
-## Get All Kittens
+## Get Orders
 
 ```ruby
-require 'kittn'
+require 'net/http'
+url = URI('http://localhost:3000/api/v1/orders/6')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
 
-api = Txtms::APIClient.authorize!('meowmeowmeow')
-api.TxtMSs.get
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
 ```
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.TxtMSs.get()
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("http://www.txtms.de/api/v1/orders/1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://example.com/api/TxtMSs"
-  -H "Authorization: meowmeowmeow"
+curl "http://localhost:3000/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-let TxtMSs = api.TxtMSs.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all TxtMSs.
+This endpoint retrieves all orders/leads, you can also define an ID to get only one.
 
 ### HTTP Request
 
