@@ -31,7 +31,7 @@ curl -H "Content-Type: application/json" -H "Api-Key: <YOUR API KEY>" --data '{\
   "description": "Your order description",\
   "template_id": "<Template ID>",\
   "data": {\
-    "image": "example.com/order.jpg",\
+    "image": "www.txtms.de/order.jpg",\
     "comments": "extra information"\
   },\
   "category": "general",\
@@ -177,7 +177,7 @@ You must replace <code><YOUR API KEY></code> with your personal API key.
 
 ```ruby
 require 'net/http'
-url = URI('http://localhost:3000/api/v1/orders/6')
+url = URI('http://www.txtms.de/api/v1/orders/6')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -199,7 +199,7 @@ urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://localhost:3000/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
+curl "http://www.txtms.de/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 
@@ -207,56 +207,81 @@ This endpoint retrieves all orders/leads, you can also define an ID to get only 
 
 ### HTTP Request
 
-`GET http://example.com/api/TxtMSs`
+`GET http://www.txtms.de/api/orders`
+
+This endpoint retrieves all contacts, you can also define an ID to get only one.
+
+### HTTP Request
+
+`GET http://www.txtms.de/api/contacts`
 
 ### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include TxtMSs that have already been adopted.
+:, :, :, :, :
+Parameter     | Default | Description
+--------------| ------- | -----------
+email_adr     |'' | If set to any email, the result will also include contact(s) with the given email.
+first_name    |'' | If set to any name, the result will also include contact(s) with the given parameter.
+last_name     |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
+sms_tel       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
+whatsapp_tel  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
 
 <aside class="success">
-Remember — a happy TxtMS is an authenticated TxtMS!
+Example: `http://www.txtms.de/api/orders?email="bob@gmail.com&sms_tel=01700200200`
 </aside>
 
-## Get a Specific Kitten
-
+## Get a Specific Contact
 ```ruby
-require 'kittn'
+require 'net/http'
+url = URI('http://www.txtms.de/api/v1/contacts/6')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
 
-api = Txtms::APIClient.authorize!('meowmeowmeow')
-api.TxtMSs.get(2)
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
 ```
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.TxtMSs.get(2)
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("http://www.txtms.de/api/v1/contacts/1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://example.com/api/TxtMSs/2"
-  -H "Authorization: meowmeowmeow"
+curl "http://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.TxtMSs.get(2);
-```
-
+> You can add any parameter from the above Query parameters to the example. e.g; `/contacts?email=bob@gmail.com`
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  id: 1,
+  salutation: "Mr",
+  name: "Bob",
+  lastname: "Doe",
+  sms_phone: "00291758417720",
+  fax: "00291758417721",
+  whatsapp_phone: "00291758417722",
+  email: "bob@doe.com",
+  message_delivery: "sms",
+  birthday: "1986-10-16T00:00:00.000Z",
+  order_id: null,
+  group_id: null,
+  data: {
+  address: "",
+  city: "",
+  postal_code: ""
+  },
+  account_id: 2,
+  created_at: "2019-01-09T22:57:05.674Z",
+  updated_at: "2019-01-09T22:57:05.674Z"
 }
 ```
 
@@ -266,7 +291,7 @@ This endpoint retrieves a specific TxtMS.
 
 ### HTTP Request
 
-`GET http://example.com/TxtMSs/<ID>`
+`GET http://www.txtms.de/TxtMSs/<ID>`
 
 ### URL Parameters
 
@@ -291,7 +316,7 @@ api.TxtMSs.delete(2)
 ```
 
 ```shell
-curl "http://example.com/api/TxtMSs/2"
+curl "http://www.txtms.de/api/TxtMSs/2"
   -X DELETE
   -H "Authorization: meowmeowmeow"
 ```
@@ -316,7 +341,7 @@ This endpoint deletes a specific TxtMS.
 
 ### HTTP Request
 
-`DELETE http://example.com/TxtMSs/<ID>`
+`DELETE http://www.txtms.de/TxtMSs/<ID>`
 
 ### URL Parameters
 
