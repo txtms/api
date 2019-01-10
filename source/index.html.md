@@ -213,7 +213,7 @@ This endpoint retrieves all contacts, you can also define an ID to get only one.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/contacts`
+`GET http://www.txtms.de/api/contacts?`
 
 ### Query Parameters
 :, :, :, :, :
@@ -291,13 +291,24 @@ This endpoint retrieves a specific TxtMS.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/TxtMSs/<ID>`
+`GET http://www.txtms.de/api/v1/orders?`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the TxtMS to retrieve
+ID | The ID of the order to retrieve
+by_contact_id | orders of a specific contact
+by_template_id | orders who are related to a specific template
+by_group_id | orders who are related to a specific group
+by_repeat | orders who have specific repart order (no repat, hourly, daily, weekly..etc)
+by_delivery | orders which delivery is set to one of the options (sms, whatsApp or fax)
+by_category | orders who are part of a specific category
+by_title | ordres who have a specific title 
+by_expires_at | orders who are going to be expired on a specific timestamp
+
+
+
 
 ## Delete a Specific Kitten
 
