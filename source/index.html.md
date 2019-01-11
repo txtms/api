@@ -209,25 +209,23 @@ This endpoint retrieves all orders/leads, you can also define an ID to get only 
 
 `GET http://www.txtms.de/api/orders`
 
-This endpoint retrieves all contacts, you can also define an ID to get only one.
+This endpoint retrieves last 10 orders, you can also define an ID to get only one.
 
-### HTTP Request
+#### URL Parameters
 
-`GET http://www.txtms.de/api/contacts?`
+Parameter | Description
+--------- | -----------
+limit | define number of orders to be retrieved, default limit is 10
+by_contact_id | orders of a specific contact
+by_template_id | orders who are related to a specific template
+by_group_id | orders who are related to a specific group
+by_repeat | orders who have specific repart order (no repat, hourly, daily, weekly..etc)
+by_delivery | orders which delivery is set to one of the options (sms, whatsApp or fax)
+by_category | orders who are part of a specific category
+by_title | ordres who have a specific title 
+by_expires_at | orders who are going to be expired on a specific timestamp
 
-### Query Parameters
-:, :, :, :, :
-Parameter     | Default | Description
---------------| ------- | -----------
-email_adr     |'' | If set to any email, the result will also include contact(s) with the given email.
-first_name    |'' | If set to any name, the result will also include contact(s) with the given parameter.
-last_name     |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
-sms_tel       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
-whatsapp_tel  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
 
-<aside class="success">
-Example: `http://www.txtms.de/api/orders?email="bob@gmail.com&sms_tel=01700200200`
-</aside>
 
 ## Get a Specific Contact
 ```ruby
@@ -285,78 +283,150 @@ curl "http://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
 }
 ```
 
-This endpoint retrieves a specific TxtMS.
+This endpoint retrieves a specific contact.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/v1/orders?`
+`GET http://www.txtms.de/api/contacts`
 
-### URL Parameters
+This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the order to retrieve
-by_contact_id | orders of a specific contact
-by_template_id | orders who are related to a specific template
-by_group_id | orders who are related to a specific group
-by_repeat | orders who have specific repart order (no repat, hourly, daily, weekly..etc)
-by_delivery | orders which delivery is set to one of the options (sms, whatsApp or fax)
-by_category | orders who are part of a specific category
-by_title | ordres who have a specific title 
-by_expires_at | orders who are going to be expired on a specific timestamp
+#### Query Parameters
+
+`GET http://www.txtms.de/api/contacts?`
+
+Parameter     | Default | Description
+--------------| ------- | -----------
+limit         |10 | define number of orders to be retrieved, default limit is 10
+email_adr     |'' | If set to any email, the result will also include contact(s) with the given email.
+first_name    |'' | If set to any name, the result will also include contact(s) with the given parameter.
+last_name     |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
+sms_tel       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
+whatsapp_tel  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
+
+<aside class="success">
+Example: `http://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200`
+</aside>
 
 
 
-
-## Delete a Specific Kitten
-
+## Get a Specific Group
 ```ruby
-require 'kittn'
+require 'net/http'
+url = URI('http://www.txtms.de/api/v1/groups/1')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
 
-api = Txtms::APIClient.authorize!('meowmeowmeow')
-api.TxtMSs.delete(2)
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
 ```
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.TxtMSs.delete(2)
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("http://www.txtms.de/api/v1/groups/1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://www.txtms.de/api/TxtMSs/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+curl "http://www.txtms.de/api/v1/groups/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
-```javascript
-const kittn = require('kittn');
+> You can add any parameter from the above Query parameters to the example. e.g; `/groups?limit=10
+> The above command returns JSON structured like this:
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.TxtMSs.delete(2);
+
+```json
+{
+  
+}
 ```
 
+This endpoint retrieves a specific contact.
+
+
+### HTTP Request
+
+`GET http://www.txtms.de/api/groups`
+
+This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
+
+#### Query Parameters
+
+`GET http://www.txtms.de/api/groups?`
+
+Parameter     | Default | Description
+--------------| ------- | -----------
+limit         |10 | define number of orders to be retrieved, default limit is 10
+by_name     |'' | If set to any name, the result will also include groups(s) with the given name.
+
+<aside class="success">
+Example: `http://www.txtms.de/api/groups?by_name=foobar
+</aside>
+
+
+## Get a Specific Template
+```ruby
+require 'net/http'
+url = URI('http://www.txtms.de/api/v1/templates/1')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
+
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
+```
+
+```python
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("http://www.txtms.de/api/v1/templates/1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
+```
+
+```shell
+curl "http://www.txtms.de/api/v1/templates/" -H "Api-Key: <YOUR API-KEY>"
+```
+
+> You can add any parameter from the above Query parameters to the example. e.g; `/templates?by_name=xyz`
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  
 }
 ```
 
-This endpoint deletes a specific TxtMS.
+This endpoint retrieves a specific contact.
+
 
 ### HTTP Request
 
-`DELETE http://www.txtms.de/TxtMSs/<ID>`
+`GET http://www.txtms.de/api/templates`
 
-### URL Parameters
+This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the TxtMS to delete
+#### Query Parameters
 
+`GET http://www.txtms.de/api/templates?`
+
+Parameter     | Default | Description
+--------------| ------- | -----------
+limit         |10 | define number of orders to be retrieved, default limit is 10
+by_name     |'' | If set to any name, the result will also include template(s) with the given name.
+
+<aside class="success">
+Example: `http://www.txtms.de/api/templates?by_name=foobar
+</aside>
