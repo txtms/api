@@ -55,7 +55,7 @@ curl -H "Content-Type: application/json" -H "Api-Key: <YOUR API KEY>" --data '{\
       "foo": "bar"\
     }\
   }\
-}' http://www.txtms.de/api/v1/orders
+}' https://www.txtms.de/api/v1/orders
 
 # if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123.
 ```
@@ -95,7 +95,7 @@ order_data = {
     }
   }
 }
-uri = URI('http://www.txtms.de/api/v1/orders')
+uri = URI('https://www.txtms.de/api/v1/orders')
 http = Net::HTTP.new(uri.host, uri.port)
 req = Net::HTTP::Post.new(uri.path, 'Content-Type': 'application/json', 'Api-Key': '<YOUR API KEY>')
 req.body = order_data.to_json
@@ -111,7 +111,7 @@ puts "failed #{e}"
 import json
 import requests
 
-webhook_url = 'http://www.txtms.de/api/v1/orders'
+webhook_url = 'https://www.txtms.de/api/v1/orders'
 order_data = {
   "title": "first order post",
   "description": "Your order description",
@@ -161,7 +161,7 @@ if response.status_code != 200:
 >
 > You can alwasy add more extra fields as json in data.
 
-TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](http://txtms.de/admin/accounts).
+TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](https://txtms.de/admin/accounts).
 
 Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
@@ -179,7 +179,7 @@ You must replace <YOUR API KEY> with your personal API key.
 
 ```ruby
 require 'net/http'
-url = URI('http://www.txtms.de/api/v1/orders/6')
+url = URI('https://www.txtms.de/api/v1/orders/6')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -195,13 +195,13 @@ try:
     import urllib2 as urlreq # Python 2.x
 except:
     import urllib.request as urlreq # Python 3.x
-req = urlreq.Request("http://www.txtms.de/api/v1/orders/1")
+req = urlreq.Request("https://www.txtms.de/api/v1/orders/1")
 req.add_header('Api-Key', '<YOUR API-KEY>')
 urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://www.txtms.de/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
+curl "https://www.txtms.de/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 
@@ -209,7 +209,7 @@ This endpoint retrieves all orders/, you can also define an ID to get only one.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/orders`
+`GET https://www.txtms.de/api/orders`
 
 This endpoint retrieves last 10 orders, you can also define an ID to get only one.
 
@@ -228,7 +228,7 @@ by_title | ordres who have a specific title
 by_expires_at | orders who are going to be expired on a specific timestamp
 
 
-e.g; `GET http://www.txtms.de/api/orders?by_group_id=123&limit=20`
+e.g; `GET https://www.txtms.de/api/orders?by_group_id=123&limit=20`
 
 
 #Contacts
@@ -237,7 +237,7 @@ The order is belongs to a specific contact, to be able to send a SMS, whatsApp t
 ## Get a Specific Contact
 ```ruby
 require 'net/http'
-url = URI('http://www.txtms.de/api/v1/contacts/6')
+url = URI('https://www.txtms.de/api/v1/contacts/6')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -253,13 +253,13 @@ try:
     import urllib2 as urlreq # Python 2.x
 except:
     import urllib.request as urlreq # Python 3.x
-req = urlreq.Request("http://www.txtms.de/api/v1/contacts/1")
+req = urlreq.Request("https://www.txtms.de/api/v1/contacts/1")
 req.add_header('Api-Key', '<YOUR API-KEY>')
 urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
+curl "https://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 > You can add any parameter from the above Query parameters to the example. e.g; `/contacts?email=bob@gmail.com`
@@ -295,13 +295,13 @@ This endpoint retrieves a specific contact.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/contacts`
+`GET https://www.txtms.de/api/contacts`
 
 This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
 
 #### Query Parameters
 
-`GET http://www.txtms.de/api/contacts?`
+`GET https://www.txtms.de/api/contacts?`
 
 Parameter     | Default | Description
 --------------| ------- | -----------
@@ -313,7 +313,7 @@ sms_tel       |'' | If set to any sms tel number, the result will also include c
 whatsapp_tel  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
 
 <aside class="success">
-Example: `http://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200`
+Example: https://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
 </aside>
 
 
@@ -321,7 +321,7 @@ Example: `http://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
 ## Get a Specific Group
 ```ruby
 require 'net/http'
-url = URI('http://www.txtms.de/api/v1/groups/1')
+url = URI('https://www.txtms.de/api/v1/groups/1')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -337,16 +337,16 @@ try:
     import urllib2 as urlreq # Python 2.x
 except:
     import urllib.request as urlreq # Python 3.x
-req = urlreq.Request("http://www.txtms.de/api/v1/groups/1")
+req = urlreq.Request("https://www.txtms.de/api/v1/groups/1")
 req.add_header('Api-Key', '<YOUR API-KEY>')
 urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://www.txtms.de/api/v1/groups/" -H "Api-Key: <YOUR API-KEY>"
+curl "https://www.txtms.de/api/v1/groups/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
-> You can add any parameter from the above Query parameters to the example. e.g; `/groups?limit=10
+> You can add any parameter from the above Query parameters to the example. e.g; /groups?limit=10
 > The above command returns JSON structured like this:
 
 
@@ -361,13 +361,13 @@ This endpoint retrieves a specific contact.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/groups`
+`GET https://www.txtms.de/api/groups`
 
 This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
 
 #### Query Parameters
 
-`GET http://www.txtms.de/api/groups?`
+`GET https://www.txtms.de/api/groups?`
 
 Parameter     | Default | Description
 --------------| ------- | -----------
@@ -375,14 +375,14 @@ limit         |10 | define number of orders to be retrieved, default limit is 10
 by_name     |'' | If set to any name, the result will also include groups(s) with the given name.
 
 <aside class="success">
-Example: `http://www.txtms.de/api/groups?by_name=foobar
+Example: https://www.txtms.de/api/groups?by_name=foobar
 </aside>
 
 
 ## Get a Specific Template
 ```ruby
 require 'net/http'
-url = URI('http://www.txtms.de/api/v1/templates/1')
+url = URI('https://www.txtms.de/api/v1/templates/1')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -398,17 +398,14 @@ try:
     import urllib2 as urlreq # Python 2.x
 except:
     import urllib.request as urlreq # Python 3.x
-req = urlreq.Request("http://www.txtms.de/api/v1/templates/1")
+req = urlreq.Request("https://www.txtms.de/api/v1/templates/1")
 req.add_header('Api-Key', '<YOUR API-KEY>')
 urlreq.urlopen(req).read()
 ```
 
 ```shell
-curl "http://www.txtms.de/api/v1/templates/" -H "Api-Key: <YOUR API-KEY>"
+curl "https://www.txtms.de/api/v1/templates/" -H "Api-Key: <YOUR API-KEY>"
 ```
-
-> You can add any parameter from the above Query parameters to the example. e.g; `/templates?by_name=xyz`
-> The above command returns JSON structured like this:
 
 ```json
 {
@@ -421,13 +418,18 @@ This endpoint retrieves a specific contact.
 
 ### HTTP Request
 
-`GET http://www.txtms.de/api/templates`
+`GET https://www.txtms.de/api/templates`
 
 This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
 
+
+You can add any parameter from the above Query parameters to the example. e.g; `/templates?by_name=xyz`
+
+The command returns JSON structured, see the side bar.
+
 #### Query Parameters
 
-`GET http://www.txtms.de/api/templates?`
+`GET https://www.txtms.de/api/templates?`
 
 Parameter     | Default | Description
 --------------| ------- | -----------
@@ -435,5 +437,5 @@ limit         |10 | define number of orders to be retrieved, default limit is 10
 by_name     |'' | If set to any name, the result will also include template(s) with the given name.
 
 <aside class="success">
-Example: `http://www.txtms.de/api/templates?by_name=foobar
+Example: `https://www.txtms.de/api/templates?by_name=foobar
 </aside>
