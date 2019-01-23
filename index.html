@@ -240,9 +240,19 @@
                   <li>
                     <a href="#get-a-specific-contact" class="toc-h2 toc-link" data-title="Get a Specific Contact">Get a Specific Contact</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#groups" class="toc-h1 toc-link" data-title="Groups">Groups</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-a-specific-group" class="toc-h2 toc-link" data-title="Get a Specific Group">Get a Specific Group</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#templates" class="toc-h1 toc-link" data-title="Templates">Templates</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#get-a-specific-template" class="toc-h2 toc-link" data-title="Get a Specific Template">Get a Specific Template</a>
                   </li>
@@ -422,7 +432,7 @@ You must replace <YOUR API KEY> with your personal API key.
 <span class="n">urlreq</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.txtms.de/api/v1/orders/"</span> -H <span class="s2">"Api-Key: &lt;YOUR API-KEY&gt;"</span>
 </code></pre>
-<p>This endpoint retrieves all orders/, you can also define an ID to get only one.</p>
+<p>This endpoint retrieves all orders, you can also define an ID to get only one.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/orders</code></p>
 
@@ -521,11 +531,12 @@ The above command returns JSON structured like this:</p>
   </span><span class="err">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-09T22:57:05.674Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific contact.</p>
+<p>This endpoint retrieves a specific contact.
+<code>GET https://www.txtms.de/api/contacts/1</code></p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/contacts</code></p>
 
-<p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one.</p>
+<p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one as mentioned above.</p>
 <h4 id='query-parameters'>Query Parameters</h4>
 <p><code>GET https://www.txtms.de/api/contacts?</code></p>
 
@@ -571,6 +582,8 @@ The above command returns JSON structured like this:</p>
 <aside class="success">
 Example: https://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
 </aside>
+<h1 id='groups'>Groups</h1>
+<p>Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc</p>
 <h2 id='get-a-specific-group'>Get a Specific Group</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
 <span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/groups/1'</span><span class="p">)</span>
 <span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
@@ -598,11 +611,12 @@ The above command returns JSON structured like this:</p>
 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific contact.</p>
+<p>This endpoint retrieves a specific group.
+<code>GET https://www.txtms.de/api/groups/1</code></p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/groups</code></p>
 
-<p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one.</p>
+<p>This endpoint retrieves last 10 groups, you can also define an ID to get only one as mentioned above.</p>
 <h4 id='query-parameters-2'>Query Parameters</h4>
 <p><code>GET https://www.txtms.de/api/groups?</code></p>
 
@@ -628,6 +642,8 @@ The above command returns JSON structured like this:</p>
 <aside class="success">
 Example: https://www.txtms.de/api/groups?by_name=foobar
 </aside>
+<h1 id='templates'>Templates</h1>
+<p>Using templates you can create sms text templates which enables you to add extra information to the main text.</p>
 <h2 id='get-a-specific-template'>Get a Specific Template</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
 <span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/templates/1'</span><span class="p">)</span>
 <span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
@@ -650,11 +666,12 @@ Example: https://www.txtms.de/api/groups?by_name=foobar
 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific contact.</p>
+<p>This endpoint retrieves a specific template.
+<code>GET https://www.txtms.de/api/templates/1</code></p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/templates</code></p>
 
-<p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one.</p>
+<p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one as mentioned above.</p>
 
 <p>You can add any parameter from the above Query parameters to the example. e.g; <code>/templates?by_name=xyz</code></p>
 
