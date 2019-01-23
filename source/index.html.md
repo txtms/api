@@ -15,13 +15,13 @@ search: true
 
 # Introduction
 
-Welcome to the TxtMS API! You can use our API to access TxtMS API endpoints, which can get and post leads/orders, make text messages via WhatsApp, SMS and Fax.
+Welcome to the TxtMS API! You can use our API to access TxtMS API endpoints, which can get and post /orders, make text messages via WhatsApp, SMS and Fax.
 
-We have language bindings in Shell, Ruby. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, Ruby and Python. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 
 # Create Order and send text
-> To post orders/leads and send sms, whatsApp for fax messages
+> To post orders/ and send sms, whatsApp for fax messages
 
 
 ```shell
@@ -161,17 +161,19 @@ if response.status_code != 200:
 >
 > You can alwasy add more extra fields as json in data.
 
-TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](http://txtms.de/accounts).
+TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](http://txtms.de/admin/accounts).
 
 Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Api-Key: txtmstx7329&R2c`
+
+If you wish to add more attributes, you can always add them as json in `data` attribute.
 
 <aside class="notice">
-You must replace <code><YOUR API KEY></code> with your personal API key.
+You must replace <YOUR API KEY> with your personal API key.
 </aside>
 
-# Orders/Leads
+# Orders
 
 ## Get Orders
 
@@ -203,7 +205,7 @@ curl "http://www.txtms.de/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 
-This endpoint retrieves all orders/leads, you can also define an ID to get only one.
+This endpoint retrieves all orders/, you can also define an ID to get only one.
 
 ### HTTP Request
 
@@ -226,6 +228,11 @@ by_title | ordres who have a specific title
 by_expires_at | orders who are going to be expired on a specific timestamp
 
 
+e.g; `GET http://www.txtms.de/api/orders?by_group_id=123&limit=20`
+
+
+#Contacts
+The order is belongs to a specific contact, to be able to send a SMS, whatsApp text or fax you need to have a contact with proper attributes.
 
 ## Get a Specific Contact
 ```ruby
