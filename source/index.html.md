@@ -205,7 +205,7 @@ curl "https://www.txtms.de/api/v1/orders/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 
-This endpoint retrieves all orders/, you can also define an ID to get only one.
+This endpoint retrieves all orders, you can also define an ID to get only one.
 
 ### HTTP Request
 
@@ -291,13 +291,13 @@ curl "https://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
 This endpoint retrieves a specific contact.
-
+`GET https://www.txtms.de/api/contacts/1`
 
 ### HTTP Request
 
 `GET https://www.txtms.de/api/contacts`
 
-This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
+This endpoint retrieves last 10 contacts, you can also define an ID to get only one as mentioned above.
 
 #### Query Parameters
 
@@ -317,6 +317,8 @@ Example: https://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
 </aside>
 
 
+#Groups
+Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc
 
 ## Get a Specific Group
 ```ruby
@@ -356,14 +358,14 @@ curl "https://www.txtms.de/api/v1/groups/" -H "Api-Key: <YOUR API-KEY>"
 }
 ```
 
-This endpoint retrieves a specific contact.
-
+This endpoint retrieves a specific group.
+`GET https://www.txtms.de/api/groups/1`
 
 ### HTTP Request
 
 `GET https://www.txtms.de/api/groups`
 
-This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
+This endpoint retrieves last 10 groups, you can also define an ID to get only one as mentioned above.
 
 #### Query Parameters
 
@@ -378,6 +380,8 @@ by_name     |'' | If set to any name, the result will also include groups(s) wit
 Example: https://www.txtms.de/api/groups?by_name=foobar
 </aside>
 
+#Templates
+Using templates you can create sms text templates which enables you to add extra information to the main text.
 
 ## Get a Specific Template
 ```ruby
@@ -413,14 +417,14 @@ curl "https://www.txtms.de/api/v1/templates/" -H "Api-Key: <YOUR API-KEY>"
 }
 ```
 
-This endpoint retrieves a specific contact.
-
+This endpoint retrieves a specific template.
+`GET https://www.txtms.de/api/templates/1`
 
 ### HTTP Request
 
 `GET https://www.txtms.de/api/templates`
 
-This endpoint retrieves last 10 contacts, you can also define an ID to get only one.
+This endpoint retrieves last 10 contacts, you can also define an ID to get only one as mentioned above.
 
 
 You can add any parameter from the above Query parameters to the example. e.g; `/templates?by_name=xyz`
