@@ -703,10 +703,8 @@ Example: `https://www.txtms.de/api/templates?by_name=foobar
 </aside>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+The API will return a 200 or 201 status code for the successful requests, in case of erros you may get one of the following status error codes, which are explained as below.
 </aside>
-
-<p>The Kittn API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -737,14 +735,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
 </tr>
 <tr>
 <td>429</td>
