@@ -801,7 +801,9 @@ You must replace <YOUR API KEY> with your personal API key.
 <aside class="notice">
 You must replace <YOUR API KEY> with your personal API key.
 </aside>
-<h1 id='answers'>answers</h1><h2 id='get-answers'>Get answers</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<h1 id='answers'>answers</h1>
+<p>answers are the quickest approve to get feedback on a specific question; like to confirm/decline something.</p>
+<h2 id='get-answers'>Get answers</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
 <span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/answers/?filter[id][eq]=1'</span><span class="p">)</span>
 <span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
 <span class="n">req</span><span class="p">.</span><span class="nf">add_field</span><span class="p">(</span><span class="s2">"Api-Key"</span><span class="p">,</span> <span class="s2">"&lt;YOUR API-KEY&gt;"</span><span class="p">)</span>
