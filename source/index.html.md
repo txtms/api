@@ -353,6 +353,8 @@ You must replace <YOUR API KEY> with your personal API key.
 
 # questions
 
+Questions can be used as quick confirmations messages, if you want the user the agree or disagree on a specific topic.
+
 ## Get questions
 
 ```ruby
