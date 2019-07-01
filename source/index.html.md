@@ -175,8 +175,8 @@ filter[title][match]=title | ordres which match a specific title
 filter[expires_at][eq]=date | orders who are going to be expired on a specific timestamp
 filter[id][gt]=17 | orders where id is > 17
 filter[id][lt]=20 | orders wher id is less than 20
-filter[title][prefix]=my | title prefix is my
-sort=title | sorted result based on title or any other attribute
+filter[title][prefix]=my | | title prefix is my
+sort=title | | sorted result based on title or any other attribute
 
 e.g; `GET https://www.txtms.de/api/orders?by_group_id=123&limit=20`
 
