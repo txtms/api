@@ -272,6 +272,280 @@ Example: https://www.txtms.de/api/orders?filter[email][eq]=bob@gmail.com&sms_tel
 
 You can always use the filter param with any attribute!
 
+# Create question and send text
+> To post a quick questions/ and send sms, whatsApp or email using different email providers.
+
+
+```shell
+# With shell, you can just pass the correct header with each request
+ curl -H "Content-Type: application/json" -H "Api-Key: c2d9547cd2bd0c33" --data '{"delivery":"sendgrid_email","account_id":1,"metadata":{"image":"example.com/lead.jpg},"contact_id":1}' https://www.txtms.de/api/v1/questions
+
+```
+
+
+```ruby
+# ruby POST request to txtms api endpoint
+require 'net/http'
+require 'json'
+question_data = {
+  "body": "first question post",
+  "delivery": "sendgrid_email",
+  "data": {
+    "image": "question.jpg"
+  },
+  "contact_id": 1
+}
+uri = URI('https://www.txtms.de/api/v1/questions')
+http = Net::HTTP.new(uri.host, uri.port)
+req = Net::HTTP::Post.new(uri.path, 'Content-Type': 'application/json', 'Api-Key': '<YOUR API KEY>')
+req.body = question_data.to_json
+res = http.request(req)
+puts "response #{res.body}"
+rescue => e
+puts "failed #{e}"
+```
+
+
+```python
+# python POST request to txtms api endpoint
+import json
+import requests
+
+webhook_url = 'https://www.txtms.de/api/v1/questions'
+question_data = {
+  "body": "first question post",
+  "delivery": "sendgrid_email"
+  "metadata": {
+    "image": "question.jpg"
+  },
+  "contact_id": 1
+}
+
+# if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123
+
+response = requests.post(
+    webhook_url, data=json.dumps(question_data),
+    headers={'Content-Type': 'application/json', Api-Key': '<YOUR API KEY>'}
+)
+if response.status_code != 200:
+    raise ValueError(
+        'Request to slack returned an error %s, the response is:\n%s'
+        % (response.status_code, response.text)
+    )
+```
+
+
+> Make sure to replace `<YOUR API KEY>` with your API key.
+>
+> You can alwasy add more extra fields as json in data.
+
+TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](https://txtms.de/admin/accounts).
+
+Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Api-Key: txtmstx7329&R2c`
+
+If you wish to add more attributes, you can always add them as json in `data` attribute.
+
+<aside class="notice">
+You must replace <YOUR API KEY> with your personal API key.
+</aside>
+
+# questions
+
+## Get questions
+
+```ruby
+require 'net/http'
+url = URI('https://www.txtms.de/api/v1/questions/?filter[id][eq]=1')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
+
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
+```
+
+```python
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("https://www.txtms.de/api/v1/questions/?filter[id][eq]=1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
+```
+
+```shell
+curl "https://www.txtms.de/api/v1/questions/" -H "Api-Key: <YOUR API-KEY>"
+```
+
+
+This endpoint retrieves all questions, you can also define an ID to get only one.
+
+### HTTP Request
+
+`GET https://www.txtms.de/api/questions`
+
+This endpoint retrieves last 10 questions, you can also define an ID to get only one.
+
+#### URL Parameters
+
+You can use the `eq` or `match` operators
+
+
+Parameter | Description
+--------- | -----------
+page[size]=2 | define number of questions to be retrieved
+filter[contact_id][eq]=ID | questions of a specific contact
+filter[delivery][eq]=mailchimp_email | questions with mailchimp email delivery
+filter[body][match]=text | questions which match a specific text
+filter[id][gt]=17 | questions where id is > 17
+filter[id][lt]=20 | questions wher id is less than 20
+filter[body][prefix]=my | | title prefix is my
+sort=title | | sorted result based on title or any other attribute
+
+
+# Create answer and send text
+> To post a quick answers to a specific question or even get a quick answer for a question, you can always trigger emails/sms by posting a new answer
+
+```shell
+# With shell, you can just pass the correct header with each request
+ curl -H "Content-Type: application/json" -H "Api-Key: c2d9547cd2bd0c33" --data '{"account_id":1,"metadata":{"image":"example.com/lead.jpg}, result: true, "question_id": 1, contact_id":1}' https://www.txtms.de/api/v1/answers
+
+```
+the `result` attribute can be used in situations where you are asking a specific user for an authorization, and this attribute may have confirming or rejecting a specific permission.
+
+
+```ruby
+# ruby POST request to txtms api endpoint
+require 'net/http'
+require 'json'
+answer_data = {
+  "result": true,
+  "delivery": "sms",
+  "metadata": {
+    "image": "answer.jpg"
+  },
+  "contact_id": 1,
+  "account_id": 'Your Account ID'
+}
+uri = URI('https://www.txtms.de/api/v1/answers')
+http = Net::HTTP.new(uri.host, uri.port)
+req = Net::HTTP::Post.new(uri.path, 'Content-Type': 'application/json', 'Api-Key': '<YOUR API KEY>')
+req.body = answer_data.to_json
+res = http.request(req)
+puts "response #{res.body}"
+rescue => e
+puts "failed #{e}"
+```
+
+
+```python
+# python POST request to txtms api endpoint
+import json
+import requests
+
+webhook_url = 'https://www.txtms.de/api/v1/answers'
+answer_data = {
+  "result": true,
+  "delivery": "sms",
+  "metadata": {
+    "image": "answer.jpg"
+  },
+  "contact_id": 1,
+  "account_id": 'Your Account ID'
+}
+
+# if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123
+
+response = requests.post(
+    webhook_url, data=json.dumps(answer_data),
+    headers={'Content-Type': 'application/json', Api-Key': '<YOUR API KEY>'}
+)
+if response.status_code != 200:
+    raise ValueError(
+        'Request to slack returned an error %s, the response is:\n%s'
+        % (response.status_code, response.text)
+    )
+```
+
+
+> Make sure to replace `<YOUR API KEY>` with your API key.
+>
+> You can alwasy add more extra fields as json in data.
+
+TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our [Account Area](https://txtms.de/admin/accounts).
+
+Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Api-Key: txtmstx7329&R2c`
+
+If you wish to add more attributes, you can always add them as json in `data` attribute.
+
+<aside class="notice">
+You must replace <YOUR API KEY> with your personal API key.
+</aside>
+
+# answers
+
+## Get answers
+
+```ruby
+require 'net/http'
+url = URI('https://www.txtms.de/api/v1/answers/?filter[id][eq]=1')
+req = Net::HTTP::Get.new(url.path)
+req.add_field("Api-Key", "<YOUR API-KEY>")
+response = Net::HTTP.new(url.host, url.port).start do |http| 
+  http.request(req) 
+end
+response.body
+
+#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)
+```
+
+```python
+try:
+    import urllib2 as urlreq # Python 2.x
+except:
+    import urllib.request as urlreq # Python 3.x
+req = urlreq.Request("https://www.txtms.de/api/v1/answers/?filter[id][eq]=1")
+req.add_header('Api-Key', '<YOUR API-KEY>')
+urlreq.urlopen(req).read()
+```
+
+```shell
+curl "https://www.txtms.de/api/v1/answers/" -H "Api-Key: <YOUR API-KEY>"
+```
+
+
+This endpoint retrieves all answers, you can also define an ID to get only one.
+
+### HTTP Request
+
+`GET https://www.txtms.de/api/answers`
+
+This endpoint retrieves last 10 answers, you can also define an ID to get only one.
+
+#### URL Parameters
+
+You can use the `eq` or `match` operators
+
+
+Parameter | Description
+--------- | -----------
+page[size]=2 | define number of answers to be retrieved
+filter[contact_id][eq]=ID | answers of a specific contact
+filter[delivery][eq]=mailchimp_email | questions with mailchimp email delivery
+filter[id][gt]=17 | answers where id is > 17
+filter[id][lt]=20 | answers wher id is less than 20
+filter[result][eq]=true | | answers with the confirmed status/result
+sort=title | | sorted result based on title or any other attribute
+
+
+
 #Groups
 Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc
 
