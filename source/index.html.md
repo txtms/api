@@ -164,15 +164,15 @@ You can use the `eq` or `match` operators
 Parameter | Description
 --------- | -----------
 page[size]=2 | define number of orders to be retrieved
-filter[contact_id][eq]=<ID> | orders of a specific contact
-filter[template_id][eq]=<ID> | orders who are related to a specific template
-filter[group_id][eq]=<ID> | orders who are related to a specific group
+filter[contact_id][eq]=ID | orders of a specific contact
+filter[template_id][eq]=ID | orders who are related to a specific template
+filter[group_id][eq]=ID | orders who are related to a specific group
 filter[repeat][eq]=no | orders who have specific repart order  (no repat, hourly, daily, weekly..etc)
 filter[delivery][eq]=sendgrid_email | orders which delivery is set to one of the options (sms, email, mailjet_email, mandril_email, sendgrid_email, whatsApp or fax)
-filter[category][eq]=<category> | orders who are part of a specific category
-filter[title][eq]=<title> | ordres who have a specific title
-filter[title][match]=<title> | ordres which match a specific title 
-filter[expires_at][eq]=<date> | orders who are going to be expired on a specific timestamp
+filter[category][eq]=category | orders who are part of a specific category
+filter[title][eq]=title | ordres who have a specific title
+filter[title][match]=title | ordres which match a specific title 
+filter[expires_at][eq]=date | orders who are going to be expired on a specific timestamp
 filter[id][gt]=17 | orders where id is > 17
 filter[id][lt]=20 | orders wher id is less than 20
 filter[title][prefix]=my | title prefix is my
@@ -256,11 +256,11 @@ This endpoint retrieves last 10 contacts, you can also define an ID to get only 
 Parameter     | Default | Description
 --------------| ------- | -----------
 page[size]=2  |10 | define number of contacts to be retrieved
-filter[email][eq]=<email>    |'' | If set to any email, the result will also include contact(s) with the given email.
-filter[name][match]=<name>   |'' | If set to any name, the result will also include contact(s) with the given parameter.
-filter[lastname][eq]=<lastname>    |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
-filter[sms_phone][eq]=<phone>       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
-filter[whatsapp_phone][eq]=<phone>  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
+filter[email][eq]=email    |'' | If set to any email, the result will also include contact(s) with the given email.
+filter[name][match]=name   |'' | If set to any name, the result will also include contact(s) with the given parameter.
+filter[lastname][eq]=lastname    |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
+filter[sms_phone][eq]=phone       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
+filter[whatsapp_phone][eq]=phone  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
 filter[id][gt]=17 | |''| contacts where id is > 17
 filter[id][lt]=20 | |''| contacts wher id is less than 20
 filter[lastname][prefix]=foobar | title prefix is my
@@ -329,8 +329,8 @@ This endpoint retrieves last 10 groups, you can also define an ID to get only on
 Parameter     | Default | Description
 --------------| ------- | -----------
 page[size]=2  |10 | define number of groups to be retrieved
-filter[id][eq]=<id>    |'' | returns a specific group
-filter[name][eq]=<name>     |'' | If set to any name, the result will also include groups(s) with the given name.
+filter[id][eq]=id    |'' | returns a specific group
+filter[name][eq]=name     |'' | If set to any name, the result will also include groups(s) with the given name.
 
 You can always use the filter param with any attribute!
 
@@ -396,8 +396,8 @@ The command returns JSON structured, see the side bar.
 Parameter     | Default | Description
 --------------| ------- | -----------
 page[size]=2  |10 | define number of groups to be retrieved
-filter[id][eq]=<id>    |'' | returns a specific group
-filter[name][eq]=<name>     |'' | If set to any name, the result will also include template(s) with the given name.
+filter[id][eq]=id    |'' | returns a specific group
+filter[name][eq]=name     |'' | If set to any name, the result will also include template(s) with the given name.
 
 You can always use the filter param with any attribute!
 
