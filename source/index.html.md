@@ -159,6 +159,8 @@ This endpoint retrieves last 10 orders, you can also define an ID to get only on
 #### URL Parameters
 
 You can use the `eq` or `match` operators
+
+
 Parameter | Description
 --------- | -----------
 page[size]=2 | define number of orders to be retrieved
