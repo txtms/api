@@ -275,36 +275,7 @@
 <p>To post orders/ and send sms, whatsApp for fax messages</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class="s2">"Api-Key: &lt;YOUR API KEY&gt;"</span> --data <span class="s1">'{\
-  "title": "first order post",\
-  "description": "Your order description",\
-  "template_id": "&lt;Template ID&gt;",\
-  "data": {\
-    "image": "www.txtms.de/order.jpg",\
-    "comments": "extra information"\
-  },\
-  "category": "general",\
-  "delivery": "sms",\
-  "repeat": "monthly",\
-  "duration": "3",\
-  "dispatch_time": "25/10/2018 13:00",\
-  "expires_at": "30/10/2018",\
-  "contact_attributes": {\
-    "salutation": "Mr",\
-    "name": "John",\
-    "lastname": "Doe",\
-    "sms_phone": "324234",\
-    "fax": "23423423",\
-    "whatsapp_phone": "23423432",\
-    "email": "api@ds.de",\
-    "birthday": "12-12-1986",\
-    "group_id": "&lt;GROUP ID&gt;",\
-    "data": { #optional\
-      "profile_image": "contact.jpg",\
-      "foo": "bar"\
-    }\
-  }\
-}'</span> https://www.txtms.de/api/v1/orders
+ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class="s2">"Api-Key: c2d9547cd2bd0c33"</span> --data <span class="s1">'{"title":"test lead","description":"lead SMS test notifiction","account_id":1,"template_id":1,"data":{"image":"example.com/lead.jpg","project_deadline":"In den nächsten 4 Wochen"},"category":"general","delivery":"sms","repeat":"monthly","duration":"3","dispatch_time":"25/10/2019 13:00","expires_at":"30/10/2019","contact_id":1}'</span> https://www.txtms.de/api/v1/orders
 
 <span class="c"># if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123.</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># ruby POST request to txtms api endpoint</span>
@@ -324,21 +295,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class=
   <span class="s2">"duration"</span><span class="p">:</span> <span class="s2">"3"</span><span class="p">,</span>
   <span class="s2">"dispatch_time"</span><span class="p">:</span> <span class="s2">"25/10/2018 13:00"</span><span class="p">,</span>
   <span class="s2">"expires_at"</span><span class="p">:</span> <span class="s2">"30/10/2018"</span><span class="p">,</span>
-  <span class="s2">"contact_attributes"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"salutation"</span><span class="p">:</span> <span class="s2">"Mr"</span><span class="p">,</span>
-    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
-    <span class="s2">"lastname"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-    <span class="s2">"sms_phone"</span><span class="p">:</span> <span class="s2">"324234"</span><span class="p">,</span>
-    <span class="s2">"fax"</span><span class="p">:</span> <span class="s2">"23423423"</span><span class="p">,</span>
-    <span class="s2">"whatsapp_phone"</span><span class="p">:</span> <span class="s2">"23423432"</span><span class="p">,</span>
-    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"api@ds.de"</span><span class="p">,</span>
-    <span class="s2">"birthday"</span><span class="p">:</span> <span class="s2">"12-12-1986"</span><span class="p">,</span>
-    <span class="s2">"group_id"</span><span class="p">:</span> <span class="s2">"&lt;GROUP ID&gt;"</span><span class="p">,</span>
-    <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span> <span class="c1">#optional</span>
-      <span class="s2">"profile_image"</span><span class="p">:</span> <span class="s2">"contact.jpg"</span><span class="p">,</span>
-      <span class="s2">"foo"</span><span class="p">:</span> <span class="s2">"bar"</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="s2">"contact_id"</span><span class="p">:</span> <span class="mi">1</span>
 <span class="p">}</span>
 <span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/orders'</span><span class="p">)</span>
 <span class="n">http</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span>
@@ -367,21 +324,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class=
   <span class="s">"duration"</span><span class="p">:</span> <span class="s">"3"</span><span class="p">,</span>
   <span class="s">"dispatch_time"</span><span class="p">:</span> <span class="s">"25/10/2018 13:00"</span><span class="p">,</span>
   <span class="s">"expires_at"</span><span class="p">:</span> <span class="s">"30/10/2018"</span><span class="p">,</span>
-  <span class="s">"contact_attributes"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s">"salutation"</span><span class="p">:</span> <span class="s">"Mr"</span><span class="p">,</span>
-    <span class="s">"name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
-    <span class="s">"lastname"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
-    <span class="s">"sms_phone"</span><span class="p">:</span> <span class="s">"324234"</span><span class="p">,</span>
-    <span class="s">"fax"</span><span class="p">:</span> <span class="s">"23423423"</span><span class="p">,</span>
-    <span class="s">"whatsapp_phone"</span><span class="p">:</span> <span class="s">"23423432"</span><span class="p">,</span>
-    <span class="s">"email"</span><span class="p">:</span> <span class="s">"api@ds.de"</span><span class="p">,</span>
-    <span class="s">"birthday"</span><span class="p">:</span> <span class="s">"12-12-1986"</span><span class="p">,</span>
-    <span class="s">"group_id"</span><span class="p">:</span> <span class="s">"&lt;GROUP ID&gt;"</span><span class="p">,</span>
-    <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span> <span class="c">#optional</span>
-      <span class="s">"profile_image"</span><span class="p">:</span> <span class="s">"contact.jpg"</span><span class="p">,</span>
-      <span class="s">"foo"</span><span class="p">:</span> <span class="s">"bar"</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="s">"contact_id"</span><span class="p">:</span> <span class="mi">1</span>
 <span class="p">}</span>
 
 <span class="c"># if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123</span>
@@ -414,7 +357,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class=
 You must replace <YOUR API KEY> with your personal API key.
 </aside>
 <h1 id='orders'>Orders</h1><h2 id='get-orders'>Get Orders</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
-<span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/orders/6'</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/orders/?filter[id][eq]=1'</span><span class="p">)</span>
 <span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
 <span class="n">req</span><span class="p">.</span><span class="nf">add_field</span><span class="p">(</span><span class="s2">"Api-Key"</span><span class="p">,</span> <span class="s2">"&lt;YOUR API-KEY&gt;"</span><span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">url</span><span class="p">.</span><span class="nf">port</span><span class="p">).</span><span class="nf">start</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span> 
@@ -427,7 +370,7 @@ You must replace <YOUR API KEY> with your personal API key.
     <span class="kn">import</span> <span class="nn">urllib2</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 2.x</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 3.x</span>
-<span class="n">req</span> <span class="o">=</span> <span class="n">urlreq</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s">"https://www.txtms.de/api/v1/orders/1"</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">urlreq</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s">"https://www.txtms.de/api/v1/orders/?filter[id][eq]=1"</span><span class="p">)</span>
 <span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">'Api-Key'</span><span class="p">,</span> <span class="s">'&lt;YOUR API-KEY&gt;'</span><span class="p">)</span>
 <span class="n">urlreq</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.txtms.de/api/v1/orders/"</span> -H <span class="s2">"Api-Key: &lt;YOUR API-KEY&gt;"</span>
@@ -438,49 +381,23 @@ You must replace <YOUR API KEY> with your personal API key.
 
 <p>This endpoint retrieves last 10 orders, you can also define an ID to get only one.</p>
 <h4 id='url-parameters'>URL Parameters</h4>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>limit</td>
-<td>define number of orders to be retrieved, default limit is 10</td>
-</tr>
-<tr>
-<td>by_contact_id</td>
-<td>orders of a specific contact</td>
-</tr>
-<tr>
-<td>by_template_id</td>
-<td>orders who are related to a specific template</td>
-</tr>
-<tr>
-<td>by_group_id</td>
-<td>orders who are related to a specific group</td>
-</tr>
-<tr>
-<td>by_repeat</td>
-<td>orders who have specific repart order (no repat, hourly, daily, weekly..etc)</td>
-</tr>
-<tr>
-<td>by_delivery</td>
-<td>orders which delivery is set to one of the options (sms, whatsApp or fax)</td>
-</tr>
-<tr>
-<td>by_category</td>
-<td>orders who are part of a specific category</td>
-</tr>
-<tr>
-<td>by_title</td>
-<td>ordres who have a specific title</td>
-</tr>
-<tr>
-<td>by_expires_at</td>
-<td>orders who are going to be expired on a specific timestamp</td>
-</tr>
-</tbody></table>
+<p>You can use the <code>eq</code> or <code>match</code> operators
+Parameter | Description
+--------- | -----------
+page[size]=2 | define number of orders to be retrieved
+filter[contact_id][eq]=<ID> | orders of a specific contact
+filter[template_id][eq]=<ID> | orders who are related to a specific template
+filter[group_id][eq]=<ID> | orders who are related to a specific group
+filter[repeat][eq]=no | orders who have specific repart order  (no repat, hourly, daily, weekly..etc)
+filter[delivery][eq]=sendgrid_email | orders which delivery is set to one of the options (sms, email, mailjet_email, mandril_email, sendgrid_email, whatsApp or fax)
+filter[category][eq]=<category> | orders who are part of a specific category
+filter[title][eq]=<title> | ordres who have a specific title
+filter[title][match]=<title> | ordres which match a specific title 
+filter[expires_at][eq]=<date> | orders who are going to be expired on a specific timestamp
+filter[id][gt]=17 | orders where id is &gt; 17
+filter[id][lt]=20 | orders wher id is less than 20
+filter[title][prefix]=my | title prefix is my
+sort=title | sorted result based on title or any other attribute</p>
 
 <p>e.g; <code>GET https://www.txtms.de/api/orders?by_group_id=123&amp;limit=20</code></p>
 <h1 id='contacts'>Contacts</h1>
@@ -505,7 +422,7 @@ You must replace <YOUR API KEY> with your personal API key.
 </code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.txtms.de/api/v1/contacts/"</span> -H <span class="s2">"Api-Key: &lt;YOUR API-KEY&gt;"</span>
 </code></pre>
 <blockquote>
-<p>You can add any parameter from the above Query parameters to the example. e.g; <code>/contacts?email=bob@gmail.com</code>
+<p>You can add any parameter from the Query parameters to the example. e.g; <code>/contacts?filter[email]=bob@gmail.com</code>
 The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -548,40 +465,62 @@ The above command returns JSON structured like this:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>limit</td>
+<td>page[size]=2</td>
 <td>10</td>
-<td>define number of orders to be retrieved, default limit is 10</td>
+<td>define number of contacts to be retrieved</td>
 </tr>
 <tr>
-<td>email_adr</td>
+<td>filter[email][eq]=<email></td>
 <td>&#39;&#39;</td>
 <td>If set to any email, the result will also include contact(s) with the given email.</td>
 </tr>
 <tr>
-<td>first_name</td>
+<td>filter[name][match]=<name></td>
 <td>&#39;&#39;</td>
 <td>If set to any name, the result will also include contact(s) with the given parameter.</td>
 </tr>
 <tr>
-<td>last_name</td>
+<td>filter[lastname][eq]=<lastname></td>
 <td>&#39;&#39;</td>
 <td>If set to any last_name, the result will also include contact(s) with the given parameter.</td>
 </tr>
 <tr>
-<td>sms_tel</td>
+<td>filter[sms_phone][eq]=<phone></td>
 <td>&#39;&#39;</td>
 <td>If set to any sms tel number, the result will also include contact(s) with the given parameter.</td>
 </tr>
 <tr>
-<td>whatsapp_tel</td>
+<td>filter[whatsapp_phone][eq]=<phone></td>
 <td>&#39;&#39;</td>
 <td>If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.</td>
+</tr>
+<tr>
+<td>filter[id][gt]=17</td>
+<td></td>
+<td>&#39;&#39;</td>
+</tr>
+<tr>
+<td>filter[id][lt]=20</td>
+<td></td>
+<td>&#39;&#39;</td>
+</tr>
+<tr>
+<td>filter[lastname][prefix]=foobar</td>
+<td>title prefix is my</td>
+<td></td>
+</tr>
+<tr>
+<td>sort=name</td>
+<td>sorted result based on name or any other attribute</td>
+<td></td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Example: https://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
+Example: https://www.txtms.de/api/orders?filter[email][eq]=bob@gmail.com&sms_tel=01700200200
 </aside>
+
+<p>You can always use the filter param with any attribute!</p>
 <h1 id='groups'>Groups</h1>
 <p>Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc</p>
 <h2 id='get-a-specific-group'>Get a Specific Group</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
@@ -628,19 +567,26 @@ The above command returns JSON structured like this:</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>limit</td>
+<td>page[size]=2</td>
 <td>10</td>
-<td>define number of orders to be retrieved, default limit is 10</td>
+<td>define number of groups to be retrieved</td>
 </tr>
 <tr>
-<td>by_name</td>
+<td>filter[id][eq]=<id></td>
+<td>&#39;&#39;</td>
+<td>returns a specific group</td>
+</tr>
+<tr>
+<td>filter[name][eq]=<name></td>
 <td>&#39;&#39;</td>
 <td>If set to any name, the result will also include groups(s) with the given name.</td>
 </tr>
 </tbody></table>
 
+<p>You can always use the filter param with any attribute!</p>
+
 <aside class="success">
-Example: https://www.txtms.de/api/groups?by_name=foobar
+Example: https://www.txtms.de/api/groups?filter[name][eq]=foobar
 </aside>
 <h1 id='templates'>Templates</h1>
 <p>Using templates you can create sms text templates which enables you to add extra information to the main text.</p>
@@ -687,19 +633,26 @@ Example: https://www.txtms.de/api/groups?by_name=foobar
 </tr>
 </thead><tbody>
 <tr>
-<td>limit</td>
+<td>page[size]=2</td>
 <td>10</td>
-<td>define number of orders to be retrieved, default limit is 10</td>
+<td>define number of groups to be retrieved</td>
 </tr>
 <tr>
-<td>by_name</td>
+<td>filter[id][eq]=<id></td>
+<td>&#39;&#39;</td>
+<td>returns a specific group</td>
+</tr>
+<tr>
+<td>filter[name][eq]=<name></td>
 <td>&#39;&#39;</td>
 <td>If set to any name, the result will also include template(s) with the given name.</td>
 </tr>
 </tbody></table>
 
+<p>You can always use the filter param with any attribute!</p>
+
 <aside class="success">
-Example: `https://www.txtms.de/api/templates?by_name=foobar
+Example: `https://www.txtms.de/api/templates?filter[name][eq]=foobar
 </aside>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
