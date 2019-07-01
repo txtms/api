@@ -26,36 +26,7 @@ We have language bindings in Shell, Ruby and Python. You can view code examples 
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl -H "Content-Type: application/json" -H "Api-Key: <YOUR API KEY>" --data '{\
-  "title": "first order post",\
-  "description": "Your order description",\
-  "template_id": "<Template ID>",\
-  "data": {\
-    "image": "www.txtms.de/order.jpg",\
-    "comments": "extra information"\
-  },\
-  "category": "general",\
-  "delivery": "sms",\
-  "repeat": "monthly",\
-  "duration": "3",\
-  "dispatch_time": "25/10/2018 13:00",\
-  "expires_at": "30/10/2018",\
-  "contact_attributes": {\
-    "salutation": "Mr",\
-    "name": "John",\
-    "lastname": "Doe",\
-    "sms_phone": "324234",\
-    "fax": "23423423",\
-    "whatsapp_phone": "23423432",\
-    "email": "api@ds.de",\
-    "birthday": "12-12-1986",\
-    "group_id": "<GROUP ID>",\
-    "data": { #optional\
-      "profile_image": "contact.jpg",\
-      "foo": "bar"\
-    }\
-  }\
-}' https://www.txtms.de/api/v1/orders
+ curl -H "Content-Type: application/json" -H "Api-Key: c2d9547cd2bd0c33" --data '{"title":"test lead","description":"lead SMS test notifiction","account_id":1,"template_id":1,"data":{"image":"example.com/lead.jpg","project_deadline":"In den nächsten 4 Wochen"},"category":"general","delivery":"sms","repeat":"monthly","duration":"3","dispatch_time":"25/10/2019 13:00","expires_at":"30/10/2019","contact_id":1}' https://www.txtms.de/api/v1/orders
 
 # if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123.
 ```
@@ -79,21 +50,7 @@ order_data = {
   "duration": "3",
   "dispatch_time": "25/10/2018 13:00",
   "expires_at": "30/10/2018",
-  "contact_attributes": {
-    "salutation": "Mr",
-    "name": "John",
-    "lastname": "Doe",
-    "sms_phone": "324234",
-    "fax": "23423423",
-    "whatsapp_phone": "23423432",
-    "email": "api@ds.de",
-    "birthday": "12-12-1986",
-    "group_id": "<GROUP ID>",
-    "data": { #optional
-      "profile_image": "contact.jpg",
-      "foo": "bar"
-    }
-  }
+  "contact_id": 1
 }
 uri = URI('https://www.txtms.de/api/v1/orders')
 http = Net::HTTP.new(uri.host, uri.port)
@@ -126,21 +83,7 @@ order_data = {
   "duration": "3",
   "dispatch_time": "25/10/2018 13:00",
   "expires_at": "30/10/2018",
-  "contact_attributes": {
-    "salutation": "Mr",
-    "name": "John",
-    "lastname": "Doe",
-    "sms_phone": "324234",
-    "fax": "23423423",
-    "whatsapp_phone": "23423432",
-    "email": "api@ds.de",
-    "birthday": "12-12-1986",
-    "group_id": "<GROUP ID>",
-    "data": { #optional
-      "profile_image": "contact.jpg",
-      "foo": "bar"
-    }
-  }
+  "contact_id": 1
 }
 
 # if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123
@@ -179,7 +122,7 @@ You must replace <YOUR API KEY> with your personal API key.
 
 ```ruby
 require 'net/http'
-url = URI('https://www.txtms.de/api/v1/orders/6')
+url = URI('https://www.txtms.de/api/v1/orders/?filter[id][eq]=1')
 req = Net::HTTP::Get.new(url.path)
 req.add_field("Api-Key", "<YOUR API-KEY>")
 response = Net::HTTP.new(url.host, url.port).start do |http| 
@@ -195,7 +138,7 @@ try:
     import urllib2 as urlreq # Python 2.x
 except:
     import urllib.request as urlreq # Python 3.x
-req = urlreq.Request("https://www.txtms.de/api/v1/orders/1")
+req = urlreq.Request("https://www.txtms.de/api/v1/orders/?filter[id][eq]=1")
 req.add_header('Api-Key', '<YOUR API-KEY>')
 urlreq.urlopen(req).read()
 ```
@@ -215,18 +158,23 @@ This endpoint retrieves last 10 orders, you can also define an ID to get only on
 
 #### URL Parameters
 
+You can use the `eq` or `match` operators
 Parameter | Description
 --------- | -----------
-limit | define number of orders to be retrieved, default limit is 10
-by_contact_id | orders of a specific contact
-by_template_id | orders who are related to a specific template
-by_group_id | orders who are related to a specific group
-by_repeat | orders who have specific repart order (no repat, hourly, daily, weekly..etc)
-by_delivery | orders which delivery is set to one of the options (sms, whatsApp or fax)
-by_category | orders who are part of a specific category
-by_title | ordres who have a specific title 
-by_expires_at | orders who are going to be expired on a specific timestamp
-
+page[size]=2 | define number of orders to be retrieved
+filter[contact_id][eq]=<ID> | orders of a specific contact
+filter[template_id][eq]=<ID> | orders who are related to a specific template
+filter[group_id][eq]=<ID> | orders who are related to a specific group
+filter[repeat][eq]=no | orders who have specific repart order  (no repat, hourly, daily, weekly..etc)
+filter[delivery][eq]=sendgrid_email | orders which delivery is set to one of the options (sms, email, mailjet_email, mandril_email, sendgrid_email, whatsApp or fax)
+filter[category][eq]=<category> | orders who are part of a specific category
+filter[title][eq]=<title> | ordres who have a specific title
+filter[title][match]=<title> | ordres which match a specific title 
+filter[expires_at][eq]=<date> | orders who are going to be expired on a specific timestamp
+filter[id][gt]=17 | orders where id is > 17
+filter[id][lt]=20 | orders wher id is less than 20
+filter[title][prefix]=my | title prefix is my
+sort=title | sorted result based on title or any other attribute
 
 e.g; `GET https://www.txtms.de/api/orders?by_group_id=123&limit=20`
 
@@ -262,7 +210,7 @@ urlreq.urlopen(req).read()
 curl "https://www.txtms.de/api/v1/contacts/" -H "Api-Key: <YOUR API-KEY>"
 ```
 
-> You can add any parameter from the above Query parameters to the example. e.g; `/contacts?email=bob@gmail.com`
+> You can add any parameter from the Query parameters to the example. e.g; `/contacts?filter[email]=bob@gmail.com`
 > The above command returns JSON structured like this:
 
 ```json
@@ -305,17 +253,22 @@ This endpoint retrieves last 10 contacts, you can also define an ID to get only 
 
 Parameter     | Default | Description
 --------------| ------- | -----------
-limit         |10 | define number of orders to be retrieved, default limit is 10
-email_adr     |'' | If set to any email, the result will also include contact(s) with the given email.
-first_name    |'' | If set to any name, the result will also include contact(s) with the given parameter.
-last_name     |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
-sms_tel       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
-whatsapp_tel  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
+page[size]=2  |10 | define number of contacts to be retrieved
+filter[email][eq]=<email>    |'' | If set to any email, the result will also include contact(s) with the given email.
+filter[name][match]=<name>   |'' | If set to any name, the result will also include contact(s) with the given parameter.
+filter[lastname][eq]=<lastname>    |'' | If set to any last_name, the result will also include contact(s) with the given parameter.
+filter[sms_phone][eq]=<phone>       |'' | If set to any sms tel number, the result will also include contact(s) with the given parameter.
+filter[whatsapp_phone][eq]=<phone>  |'' | If set to any WhatsApp tel number, the result will also include contact(s) with the given parameter.
+filter[id][gt]=17 | |''| contacts where id is > 17
+filter[id][lt]=20 | |''| contacts wher id is less than 20
+filter[lastname][prefix]=foobar | title prefix is my
+sort=name | sorted result based on name or any other attribute
 
 <aside class="success">
-Example: https://www.txtms.de/api/orders?email=bob@gmail.com&sms_tel=01700200200
+Example: https://www.txtms.de/api/orders?filter[email][eq]=bob@gmail.com&sms_tel=01700200200
 </aside>
 
+You can always use the filter param with any attribute!
 
 #Groups
 Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc
@@ -373,11 +326,14 @@ This endpoint retrieves last 10 groups, you can also define an ID to get only on
 
 Parameter     | Default | Description
 --------------| ------- | -----------
-limit         |10 | define number of orders to be retrieved, default limit is 10
-by_name     |'' | If set to any name, the result will also include groups(s) with the given name.
+page[size]=2  |10 | define number of groups to be retrieved
+filter[id][eq]=<id>    |'' | returns a specific group
+filter[name][eq]=<name>     |'' | If set to any name, the result will also include groups(s) with the given name.
+
+You can always use the filter param with any attribute!
 
 <aside class="success">
-Example: https://www.txtms.de/api/groups?by_name=foobar
+Example: https://www.txtms.de/api/groups?filter[name][eq]=foobar
 </aside>
 
 #Templates
@@ -437,9 +393,12 @@ The command returns JSON structured, see the side bar.
 
 Parameter     | Default | Description
 --------------| ------- | -----------
-limit         |10 | define number of orders to be retrieved, default limit is 10
-by_name     |'' | If set to any name, the result will also include template(s) with the given name.
+page[size]=2  |10 | define number of groups to be retrieved
+filter[id][eq]=<id>    |'' | returns a specific group
+filter[name][eq]=<name>     |'' | If set to any name, the result will also include template(s) with the given name.
+
+You can always use the filter param with any attribute!
 
 <aside class="success">
-Example: `https://www.txtms.de/api/templates?by_name=foobar
+Example: `https://www.txtms.de/api/templates?filter[name][eq]=foobar
 </aside>
