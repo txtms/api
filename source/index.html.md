@@ -492,6 +492,7 @@ You must replace <YOUR API KEY> with your personal API key.
 </aside>
 
 # answers
+answers are the quickest approve to get feedback on a specific question; like to confirm/decline something.
 
 ## Get answers
 
