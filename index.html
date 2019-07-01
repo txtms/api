@@ -381,23 +381,71 @@ You must replace <YOUR API KEY> with your personal API key.
 
 <p>This endpoint retrieves last 10 orders, you can also define an ID to get only one.</p>
 <h4 id='url-parameters'>URL Parameters</h4>
-<p>You can use the <code>eq</code> or <code>match</code> operators
-Parameter | Description
---------- | -----------
-page[size]=2 | define number of orders to be retrieved
-filter[contact_id][eq]=<ID> | orders of a specific contact
-filter[template_id][eq]=<ID> | orders who are related to a specific template
-filter[group_id][eq]=<ID> | orders who are related to a specific group
-filter[repeat][eq]=no | orders who have specific repart order  (no repat, hourly, daily, weekly..etc)
-filter[delivery][eq]=sendgrid_email | orders which delivery is set to one of the options (sms, email, mailjet_email, mandril_email, sendgrid_email, whatsApp or fax)
-filter[category][eq]=<category> | orders who are part of a specific category
-filter[title][eq]=<title> | ordres who have a specific title
-filter[title][match]=<title> | ordres which match a specific title 
-filter[expires_at][eq]=<date> | orders who are going to be expired on a specific timestamp
-filter[id][gt]=17 | orders where id is &gt; 17
-filter[id][lt]=20 | orders wher id is less than 20
-filter[title][prefix]=my | title prefix is my
-sort=title | sorted result based on title or any other attribute</p>
+<p>You can use the <code>eq</code> or <code>match</code> operators</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page[size]=2</td>
+<td>define number of orders to be retrieved</td>
+</tr>
+<tr>
+<td>filter[contact_id][eq]=<ID></td>
+<td>orders of a specific contact</td>
+</tr>
+<tr>
+<td>filter[template_id][eq]=<ID></td>
+<td>orders who are related to a specific template</td>
+</tr>
+<tr>
+<td>filter[group_id][eq]=<ID></td>
+<td>orders who are related to a specific group</td>
+</tr>
+<tr>
+<td>filter[repeat][eq]=no</td>
+<td>orders who have specific repart order  (no repat, hourly, daily, weekly..etc)</td>
+</tr>
+<tr>
+<td>filter[delivery][eq]=sendgrid_email</td>
+<td>orders which delivery is set to one of the options (sms, email, mailjet_email, mandril_email, sendgrid_email, whatsApp or fax)</td>
+</tr>
+<tr>
+<td>filter[category][eq]=<category></td>
+<td>orders who are part of a specific category</td>
+</tr>
+<tr>
+<td>filter[title][eq]=<title></td>
+<td>ordres who have a specific title</td>
+</tr>
+<tr>
+<td>filter[title][match]=<title></td>
+<td>ordres which match a specific title</td>
+</tr>
+<tr>
+<td>filter[expires_at][eq]=<date></td>
+<td>orders who are going to be expired on a specific timestamp</td>
+</tr>
+<tr>
+<td>filter[id][gt]=17</td>
+<td>orders where id is &gt; 17</td>
+</tr>
+<tr>
+<td>filter[id][lt]=20</td>
+<td>orders wher id is less than 20</td>
+</tr>
+<tr>
+<td>filter[title][prefix]=my</td>
+<td>title prefix is my</td>
+</tr>
+<tr>
+<td>sort=title</td>
+<td>sorted result based on title or any other attribute</td>
+</tr>
+</tbody></table>
 
 <p>e.g; <code>GET https://www.txtms.de/api/orders?by_group_id=123&amp;limit=20</code></p>
 <h1 id='contacts'>Contacts</h1>
