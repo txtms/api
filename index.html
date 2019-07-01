@@ -243,6 +243,28 @@
               </ul>
           </li>
           <li>
+            <a href="#create-question-and-send-text" class="toc-h1 toc-link" data-title="Create question and send text">Create question and send text</a>
+          </li>
+          <li>
+            <a href="#questions" class="toc-h1 toc-link" data-title="questions">questions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-questions" class="toc-h2 toc-link" data-title="Get questions">Get questions</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#create-answer-and-send-text" class="toc-h1 toc-link" data-title="Create answer and send text">Create answer and send text</a>
+          </li>
+          <li>
+            <a href="#answers" class="toc-h1 toc-link" data-title="answers">answers</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-answers" class="toc-h2 toc-link" data-title="Get answers">Get answers</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#groups" class="toc-h1 toc-link" data-title="Groups">Groups</a>
               <ul class="toc-list-h2">
                   <li>
@@ -569,6 +591,276 @@ Example: https://www.txtms.de/api/orders?filter[email][eq]=bob@gmail.com&sms_tel
 </aside>
 
 <p>You can always use the filter param with any attribute!</p>
+<h1 id='create-question-and-send-text'>Create question and send text</h1>
+<blockquote>
+<p>To post a quick questions/ and send sms, whatsApp or email using different email providers.</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class="s2">"Api-Key: c2d9547cd2bd0c33"</span> --data <span class="s1">'{"delivery":"sendgrid_email","account_id":1,"metadata":{"image":"example.com/lead.jpg},"contact_id":1}'</span> https://www.txtms.de/api/v1/questions
+
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># ruby POST request to txtms api endpoint</span>
+<span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+<span class="n">question_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"body"</span><span class="p">:</span> <span class="s2">"first question post"</span><span class="p">,</span>
+  <span class="s2">"delivery"</span><span class="p">:</span> <span class="s2">"sendgrid_email"</span><span class="p">,</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"image"</span><span class="p">:</span> <span class="s2">"question.jpg"</span>
+  <span class="p">},</span>
+  <span class="s2">"contact_id"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/questions'</span><span class="p">)</span>
+<span class="n">http</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">path</span><span class="p">,</span> <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span> <span class="s1">'Api-Key'</span><span class="p">:</span> <span class="s1">'&lt;YOUR API KEY&gt;'</span><span class="p">)</span>
+<span class="n">req</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="n">question_data</span><span class="p">.</span><span class="nf">to_json</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"response </span><span class="si">#{</span><span class="n">res</span><span class="p">.</span><span class="nf">body</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+<span class="nb">puts</span> <span class="s2">"failed </span><span class="si">#{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="c"># python POST request to txtms api endpoint</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">webhook_url</span> <span class="o">=</span> <span class="s">'https://www.txtms.de/api/v1/questions'</span>
+<span class="n">question_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"body"</span><span class="p">:</span> <span class="s">"first question post"</span><span class="p">,</span>
+  <span class="s">"delivery"</span><span class="p">:</span> <span class="s">"sendgrid_email"</span>
+  <span class="s">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"image"</span><span class="p">:</span> <span class="s">"question.jpg"</span>
+  <span class="p">},</span>
+  <span class="s">"contact_id"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c"># if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="n">webhook_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">question_data</span><span class="p">),</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="n">Api</span><span class="o">-</span><span class="n">Key</span><span class="s">': '</span><span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">API</span> <span class="n">KEY</span><span class="o">&gt;</span><span class="s">'}</span><span class="err">
+</span><span class="s">)</span><span class="err">
+</span><span class="s">if response.status_code != 200:</span><span class="err">
+</span><span class="s">    raise ValueError(</span><span class="err">
+</span><span class="s">        '</span><span class="n">Request</span> <span class="n">to</span> <span class="n">slack</span> <span class="n">returned</span> <span class="n">an</span> <span class="n">error</span> <span class="o">%</span><span class="n">s</span><span class="p">,</span> <span class="n">the</span> <span class="n">response</span> <span class="ow">is</span><span class="p">:</span>\<span class="n">n</span><span class="o">%</span><span class="n">s</span><span class="s">'</span><span class="err">
+</span><span class="s">        </span><span class="si">% </span><span class="s">(response.status_code, response.text)</span><span class="err">
+</span><span class="s">    )</span><span class="err">
+</span></code></pre>
+<blockquote>
+<p>Make sure to replace <code>&lt;YOUR API KEY&gt;</code> with your API key.</p>
+
+<p>You can alwasy add more extra fields as json in data.</p>
+</blockquote>
+
+<p>TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our <a href="https://txtms.de/admin/accounts">Account Area</a>.</p>
+
+<p>Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Api-Key: txtmstx7329&amp;R2c</code></p>
+
+<p>If you wish to add more attributes, you can always add them as json in <code>data</code> attribute.</p>
+
+<aside class="notice">
+You must replace <YOUR API KEY> with your personal API key.
+</aside>
+<h1 id='questions'>questions</h1><h2 id='get-questions'>Get questions</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/questions/?filter[id][eq]=1'</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
+<span class="n">req</span><span class="p">.</span><span class="nf">add_field</span><span class="p">(</span><span class="s2">"Api-Key"</span><span class="p">,</span> <span class="s2">"&lt;YOUR API-KEY&gt;"</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">url</span><span class="p">.</span><span class="nf">port</span><span class="p">).</span><span class="nf">start</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span> 
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">req</span><span class="p">)</span> 
+<span class="k">end</span>
+<span class="n">response</span><span class="p">.</span><span class="nf">body</span>
+
+<span class="c1">#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 2.x</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 3.x</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">urlreq</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s">"https://www.txtms.de/api/v1/questions/?filter[id][eq]=1"</span><span class="p">)</span>
+<span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">'Api-Key'</span><span class="p">,</span> <span class="s">'&lt;YOUR API-KEY&gt;'</span><span class="p">)</span>
+<span class="n">urlreq</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.txtms.de/api/v1/questions/"</span> -H <span class="s2">"Api-Key: &lt;YOUR API-KEY&gt;"</span>
+</code></pre>
+<p>This endpoint retrieves all questions, you can also define an ID to get only one.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET https://www.txtms.de/api/questions</code></p>
+
+<p>This endpoint retrieves last 10 questions, you can also define an ID to get only one.</p>
+<h4 id='url-parameters-2'>URL Parameters</h4>
+<p>You can use the <code>eq</code> or <code>match</code> operators</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page[size]=2</td>
+<td>define number of questions to be retrieved</td>
+</tr>
+<tr>
+<td>filter[contact_id][eq]=ID</td>
+<td>questions of a specific contact</td>
+</tr>
+<tr>
+<td>filter[delivery][eq]=mailchimp_email</td>
+<td>questions with mailchimp email delivery</td>
+</tr>
+<tr>
+<td>filter[body][match]=text</td>
+<td>questions which match a specific text</td>
+</tr>
+<tr>
+<td>filter[id][gt]=17</td>
+<td>questions where id is &gt; 17</td>
+</tr>
+<tr>
+<td>filter[id][lt]=20</td>
+<td>questions wher id is less than 20</td>
+</tr>
+<tr>
+<td>filter[body][prefix]=my</td>
+<td></td>
+</tr>
+<tr>
+<td>sort=title</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id='create-answer-and-send-text'>Create answer and send text</h1>
+<blockquote>
+<p>To post a quick answers to a specific question or even get a quick answer for a question, you can always trigger emails/sms by posting a new answer</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+ curl -H <span class="s2">"Content-Type: application/json"</span> -H <span class="s2">"Api-Key: c2d9547cd2bd0c33"</span> --data <span class="s1">'{"account_id":1,"metadata":{"image":"example.com/lead.jpg}, result: true, "question_id": 1, contact_id":1}'</span> https://www.txtms.de/api/v1/answers
+
+</code></pre>
+<p>the <code>result</code> attribute can be used in situations where you are asking a specific user for an authorization, and this attribute may have confirming or rejecting a specific permission.</p>
+<pre class="highlight ruby tab-ruby"><code><span class="c1"># ruby POST request to txtms api endpoint</span>
+<span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+<span class="n">answer_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"result"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="s2">"delivery"</span><span class="p">:</span> <span class="s2">"sms"</span><span class="p">,</span>
+  <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"image"</span><span class="p">:</span> <span class="s2">"answer.jpg"</span>
+  <span class="p">},</span>
+  <span class="s2">"contact_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"account_id"</span><span class="p">:</span> <span class="s1">'Your Account ID'</span>
+<span class="p">}</span>
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/answers'</span><span class="p">)</span>
+<span class="n">http</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">path</span><span class="p">,</span> <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span> <span class="s1">'Api-Key'</span><span class="p">:</span> <span class="s1">'&lt;YOUR API KEY&gt;'</span><span class="p">)</span>
+<span class="n">req</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="n">answer_data</span><span class="p">.</span><span class="nf">to_json</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"response </span><span class="si">#{</span><span class="n">res</span><span class="p">.</span><span class="nf">body</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+<span class="nb">puts</span> <span class="s2">"failed </span><span class="si">#{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="c"># python POST request to txtms api endpoint</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">webhook_url</span> <span class="o">=</span> <span class="s">'https://www.txtms.de/api/v1/answers'</span>
+<span class="n">answer_data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"result"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"delivery"</span><span class="p">:</span> <span class="s">"sms"</span><span class="p">,</span>
+  <span class="s">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"image"</span><span class="p">:</span> <span class="s">"answer.jpg"</span>
+  <span class="p">},</span>
+  <span class="s">"contact_id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s">"account_id"</span><span class="p">:</span> <span class="s">'Your Account ID'</span>
+<span class="p">}</span>
+
+<span class="c"># if you wanna send to an existing contact instead of contact_attributes just pass e.g; "contact_id": 123</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="n">webhook_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">answer_data</span><span class="p">),</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="n">Api</span><span class="o">-</span><span class="n">Key</span><span class="s">': '</span><span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">API</span> <span class="n">KEY</span><span class="o">&gt;</span><span class="s">'}</span><span class="err">
+</span><span class="s">)</span><span class="err">
+</span><span class="s">if response.status_code != 200:</span><span class="err">
+</span><span class="s">    raise ValueError(</span><span class="err">
+</span><span class="s">        '</span><span class="n">Request</span> <span class="n">to</span> <span class="n">slack</span> <span class="n">returned</span> <span class="n">an</span> <span class="n">error</span> <span class="o">%</span><span class="n">s</span><span class="p">,</span> <span class="n">the</span> <span class="n">response</span> <span class="ow">is</span><span class="p">:</span>\<span class="n">n</span><span class="o">%</span><span class="n">s</span><span class="s">'</span><span class="err">
+</span><span class="s">        </span><span class="si">% </span><span class="s">(response.status_code, response.text)</span><span class="err">
+</span><span class="s">    )</span><span class="err">
+</span></code></pre>
+<blockquote>
+<p>Make sure to replace <code>&lt;YOUR API KEY&gt;</code> with your API key.</p>
+
+<p>You can alwasy add more extra fields as json in data.</p>
+</blockquote>
+
+<p>TxtMS uses API keys to allow access to the API. You can register a new TxtMS API key at our <a href="https://txtms.de/admin/accounts">Account Area</a>.</p>
+
+<p>Txtms expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Api-Key: txtmstx7329&amp;R2c</code></p>
+
+<p>If you wish to add more attributes, you can always add them as json in <code>data</code> attribute.</p>
+
+<aside class="notice">
+You must replace <YOUR API KEY> with your personal API key.
+</aside>
+<h1 id='answers'>answers</h1><h2 id='get-answers'>Get answers</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'https://www.txtms.de/api/v1/answers/?filter[id][eq]=1'</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">path</span><span class="p">)</span>
+<span class="n">req</span><span class="p">.</span><span class="nf">add_field</span><span class="p">(</span><span class="s2">"Api-Key"</span><span class="p">,</span> <span class="s2">"&lt;YOUR API-KEY&gt;"</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">url</span><span class="p">.</span><span class="nf">port</span><span class="p">).</span><span class="nf">start</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span> 
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">req</span><span class="p">)</span> 
+<span class="k">end</span>
+<span class="n">response</span><span class="p">.</span><span class="nf">body</span>
+
+<span class="c1">#Completed 403 Forbidden in 1086ms (Views: 1083.6ms | ActiveRecord: 0.3ms)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 2.x</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="n">urlreq</span> <span class="c"># Python 3.x</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">urlreq</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s">"https://www.txtms.de/api/v1/answers/?filter[id][eq]=1"</span><span class="p">)</span>
+<span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">'Api-Key'</span><span class="p">,</span> <span class="s">'&lt;YOUR API-KEY&gt;'</span><span class="p">)</span>
+<span class="n">urlreq</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.txtms.de/api/v1/answers/"</span> -H <span class="s2">"Api-Key: &lt;YOUR API-KEY&gt;"</span>
+</code></pre>
+<p>This endpoint retrieves all answers, you can also define an ID to get only one.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://www.txtms.de/api/answers</code></p>
+
+<p>This endpoint retrieves last 10 answers, you can also define an ID to get only one.</p>
+<h4 id='url-parameters-3'>URL Parameters</h4>
+<p>You can use the <code>eq</code> or <code>match</code> operators</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page[size]=2</td>
+<td>define number of answers to be retrieved</td>
+</tr>
+<tr>
+<td>filter[contact_id][eq]=ID</td>
+<td>answers of a specific contact</td>
+</tr>
+<tr>
+<td>filter[delivery][eq]=mailchimp_email</td>
+<td>questions with mailchimp email delivery</td>
+</tr>
+<tr>
+<td>filter[id][gt]=17</td>
+<td>answers where id is &gt; 17</td>
+</tr>
+<tr>
+<td>filter[id][lt]=20</td>
+<td>answers wher id is less than 20</td>
+</tr>
+<tr>
+<td>filter[result][eq]=true</td>
+<td></td>
+</tr>
+<tr>
+<td>sort=title</td>
+<td></td>
+</tr>
+</tbody></table>
 <h1 id='groups'>Groups</h1>
 <p>Using groups you can set specific set of configurations like welcome messages farewells, specific events and etc</p>
 <h2 id='get-a-specific-group'>Get a Specific Group</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
@@ -600,7 +892,7 @@ The above command returns JSON structured like this:</p>
 </span></code></pre>
 <p>This endpoint retrieves a specific group.
 <code>GET https://www.txtms.de/api/groups/1</code></p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/groups</code></p>
 
 <p>This endpoint retrieves last 10 groups, you can also define an ID to get only one as mentioned above.</p>
@@ -662,7 +954,7 @@ Example: https://www.txtms.de/api/groups?filter[name][eq]=foobar
 </span></code></pre>
 <p>This endpoint retrieves a specific template.
 <code>GET https://www.txtms.de/api/templates/1</code></p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET https://www.txtms.de/api/templates</code></p>
 
 <p>This endpoint retrieves last 10 contacts, you can also define an ID to get only one as mentioned above.</p>
